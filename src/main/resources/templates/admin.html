@@ -19,20 +19,38 @@
 <body>
 
 <table>
-    <caption>USER</caption>
+    <caption>USERS</caption>
     <tr>
+        <th>Id</th>
         <th>Name</th>
         <th>Email</th>
         <th>Password</th>
-
+<!--        <th>Roles</th>-->
+        <th>Update</th>
+        <th>Delete</th>
     </tr>
-    <tr th:each="user : ${user}">
+    <tr th:each="user : ${listUsers}">
+        <td th:text="${user.getId()}"></td>
         <td th:text="${user.getUsername()}"></td>
         <td th:text="${user.getEmail()}"></td>
         <td th:text="${user.getPassword()}"></td>
-    </tr>
-</table>
 
+<!--        <td  th:each="rol : ${user.getRoles()}" var=${rol.getName()}" ></td>-->
+
+
+
+        <td><a th:href="@{/admin/update/{id}(id=${user.id})}">Edit</a></td>
+        <!--        <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>-->
+        <td>
+            <form th:method="DELETE" th:action="@{/admin/delete/(id=${user.getId()})}">
+                <input type="submit" value="DEL"/>
+            </form>
+        </td>
+
+    </tr>
+
+</table>
+<p><a href="/admin/create">Create user</a></p>
 <p><a href="/logout">logout</a></p>
 
 </body>

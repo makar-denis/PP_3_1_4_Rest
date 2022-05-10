@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create user</title>
+</head>
+<body>
+<form th:method="PUT" th:action="@{/admin/update}" th:object="${user}">
+  <label for="id">ID</label>
+  <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+
+  <label for="username">Name</label>
+  <input type="text" th:field="*{username}" id="username" placeholder="Name">
+
+  <label for="password">Password</label>
+  <input type="text" th:field="*{password}" id="password" placeholder="Password">
+
+  <label for="email">Email</label>
+  <input type="text" th:field="*{email}" id="email" placeholder="Email">
+
+  <label>Check role:
+    <input type="checkbox" name="checked"
+           th:each="role : ${rol}"
+           th:text="${role.getName()}"
+           th:value="${role.getId()}"
+           th:selected="${user.getAuthorities().contains(role)}">
+  </label>
+
+
+  <input type="submit" value="Update User">
+  <p><a href="/logout">logout</a></p>
+
+</form>
+</body>
+</html>
