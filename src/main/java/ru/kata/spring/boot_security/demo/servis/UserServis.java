@@ -8,7 +8,7 @@ public interface UserServis {
     void add(User user);
     void delete(long id);
     void change(User user);
-    User getUser(long id);
+    User getUserBiId(long id);
     User getUserByName(String name);
     List<User> all();
 }

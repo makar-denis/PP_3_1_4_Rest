@@ -30,7 +30,7 @@ public class UserServisImp implements UserDetailsService, UserServis { //
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetails user = userRepository.findUserByusername(username);
+        UserDetails user = userRepository.findUserByUserName(username);
         if (user==null){
             throw new UsernameNotFoundException("Пользватель не найден");
         }  // проверка наличия пользователя
@@ -56,7 +56,19 @@ public class UserServisImp implements UserDetailsService, UserServis { //
 
     @Override
     public void change(User user){
-        userRepository.saveAndFlush(user);
+        String passwordFromForm = user.getPassword();
+        String encodedPasswordFromBase = userRepository.getById(user.getId()).getPassword();
+        if (passwordFromForm.equals(encodedPasswordFromBase)) {
+            user.setPassword(encodedPasswordFromBase);
+        } else {
+            if (passwordEncoder.matches(passwordFromForm, encodedPasswordFromBase)) {
+                user.setPassword(encodedPasswordFromBase);
+            } else {
+                user.setPassword(passwordEncoder.encode(passwordFromForm));
+            }
+        }
+        userRepository.save(user);
+//        userRepository.saveAndFlush(user);
     }
 
     @Override
@@ -65,15 +77,16 @@ public class UserServisImp implements UserDetailsService, UserServis { //
     }
 
     @Override
-    public User getUser(long id) {
-        return userRepository.getById(id);
+    public User getUserBiId(long id) {
+//        return userRepository.getById(id);
+        return userRepository.findById(id).orElse(null);
 //        return userRepository.getOne(id);
 //        return userRepository.getReferenceById(id);
     }
 
     @Override
     public User getUserByName(String name) {
-        return userRepository.findUserByusername(name);
+        return userRepository.findUserByUserName(name);
     }
 
 }

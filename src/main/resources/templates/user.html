@@ -1,39 +1,126 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <title>Users</title>
     <style>
-        table {
-            width: 70%; /* Ширина таблицы */
-            background: black; /* Цвет фона таблицы */
-            color: black; /* Цвет текста */
-            border-spacing: 1px; /* Расстояние между ячейками */
-        }
-        td, th {
-            background: white; /* Цвет фона ячеек */
-            padding: 2px; /* Поля вокруг текста */
-        }
+
     </style>
 </head>
 <body>
 
-<table>
-    <caption>USER</caption>
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Password</th>
+<div class="container-fluid bg-dark text-white">
+    <div class="row">
+        <div class="p-2 flex-grow-1 bd-highlight" >
+            <b th:text="${user.getUsername()}">NAME</b>
+            <c th:text="'with roles:'"></c>
+            <c th:each="rol : ${user.getRoles()}"
+                th:text="${rol.getName()}+' '">ROLE</c>
+        </div>
 
-    </tr>
-    <tr th:each="user : ${user}">
-        <td th:text="${user.getUsername()}"></td>
-        <td th:text="${user.getEmail()}"></td>
-        <td th:text="${user.getPassword()}"></td>
-    </tr>
-</table>
+        <div class="">
+            <a href="/logout" class="text-white">logout</a>
+        </div>
+    </div>
+</div>
 
-<p><a href="/logout">logout</a></p>
 
+<div class="row vh-100">
+    <div class="col-2">
+        <div class="mt-3 nav flex-column nav-pills nav-fill nav-justified" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-item nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+               aria-controls="v-pills-home" aria-selected="true">User</a>
+
+        </div>
+    </div>
+    <div class="col-10 bg-light">
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <div class="col-12 bg-light">
+                    <h1>User information-page </h1>
+                    <div  class="bg-light border border-gray-500 ">
+                        <h4>About user</h4>
+                    </div>
+
+                    <div class="container-fluid border border-gray-500 bg-white">
+
+                        <div class="row-fluid mt-3">
+                            <div>
+
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Age</th>
+                                        <!--                                Добавить фамилию-->
+                                        <th scope="col">Email</th>
+                                        <!--                                Добавить возраст-->
+                                        <th scope="col">Role</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="user : ${user}">
+                                        <td th:text="${user.getId()}">ID</td>
+                                        <td th:text="${user.getUsername()}">Name</td>
+                                        <td th:text="${user.getLastName()}">Last Name</td>
+                                        <td th:text="${user.getAge()}">Age</td>
+                                        <td th:text="${user.getEmail()}">Email</td>
+                                        <td> <a th:each="rol : ${user.getRoles()}"
+                                               th:text="${rol.getName()}+' '">Role</a></td>
+
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<div class="container-fluid ">-->
+<!--    <div class="row">-->
+<!--        <div class="col-1 bg-white">-->
+<!--            <a href="/user" class="list-group-item list-group-item-action list-group-item-secondary text-white">-->
+<!--                <p th:each="rol : ${user.getRoles()}"-->
+<!--                 th:text="${rol.getName()}+' '">ROLE</p></a>-->
+<!--        </div>-->
+
+
+
+
+
+
+
+
+<!--<table>-->
+<!--    <caption>USER</caption>-->
+<!--    <tr>-->
+<!--        <th>Name</th>-->
+<!--        <th>Email</th>-->
+<!--        <th>Password</th>-->
+
+<!--    </tr>-->
+<!--    <tr th:each="user : ${user}">-->
+<!--        <td th:text="${user.getUsername()}"></td>-->
+<!--        <td th:text="${user.getEmail()}"></td>-->
+<!--        <td th:text="${user.getPassword()}"></td>-->
+<!--    </tr>-->
+<!--</table>-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

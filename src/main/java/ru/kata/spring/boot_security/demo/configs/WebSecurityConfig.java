@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
 @ComponentScan("ru.kata.spring.boot_security.demo")
@@ -28,22 +30,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        http.addFilterBefore(filter, CsrfFilter.class);
         http
                     .authorizeRequests()
                     .antMatchers("/", "/index").permitAll()
                     .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                     .antMatchers("/user").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-                    .anyRequest().authenticated()
+//                    .anyRequest().authenticated()
                 .and()
                     .formLogin().successHandler(successUserHandler)
 
 //                .formLogin()
 //                .loginProcessingUrl("/hellologin") можно создать свою страницу для ввода логина и пароля
 
-                    .permitAll()
-                .and()
-                    .logout()
-                    .permitAll();
+//                    .permitAll()
+//                .and()
+//                    .logout()
+//                    .permitAll()
+        ;
     }
 
 

@@ -34,23 +34,28 @@ public class AdminController {
 
 
     @GetMapping("/admin")
-    public String allUser( ModelMap model) {
+    public String allUser( @AuthenticationPrincipal UserDetails userDetails, ModelMap model) {
+        model.addAttribute("user", userServisImp.getUserByName(userDetails.getUsername()));
+
         model.addAttribute("listUsers", userServisImp.all());
-//        model.addAttribute("listroles", roleServisImp.getAllRoles());
+        model.addAttribute("newUser", new User());
+        model.addAttribute("rol", roleServisImp.findAll());
+
+
         return "admin";
     }
 
-    @GetMapping("/admin/create")
-    public String createUserForm(ModelMap model){
-        model.addAttribute("user", new User());
-        model.addAttribute("rol", roleServisImp.findAll());
-        return "create";
-    }
+//    @GetMapping("/admin/create")
+//    public String createUserForm(ModelMap model){
+//        model.addAttribute("user", new User());
+//        model.addAttribute("rol", roleServisImp.findAll());
+//        return "create";
+//    }
 
     @PostMapping("/admin/create")
-    public String createUser(@ModelAttribute User user, @RequestParam("checked") Set<Role> roles){
-        user.setRoles(roles);
-        userServisImp.add(user);
+    public String createUser(User newUser, @RequestParam("roles") Set<Role> roles){
+        newUser.setRoles(roles);
+        userServisImp.add(newUser);
         return "redirect:/admin";
     }
 
@@ -60,18 +65,22 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/update/{id}")
-    public String updateUserForm(@PathVariable("id") Long id, ModelMap model){
-        User user = userServisImp.getUser(id);
-        model.addAttribute("user", user);
-        model.addAttribute("rol", roleServisImp.findAll());
-        return "update";
-    }
+//    @GetMapping("/admin/update/{id}")
+//    public String updateUserForm(@PathVariable("id") Long id, ModelMap model){
+//        User user = userServisImp.getUser(id);
+//        model.addAttribute("user", user);
+//        model.addAttribute("rol", roleServisImp.findAll());
+//        return "update";
+//    }
 
     @PutMapping("/admin/update")
-    public String updateUser(@ModelAttribute User user, @RequestParam("checked") Set<Role> roles){
-        user.setRoles(roles);
-        userServisImp.change(user);
+    public String updateUser(
+//            @RequestParam("roles") Set<Role> roles, User user, @RequestParam(value = "id") Long id
+            @ModelAttribute("user1") User user1, @RequestParam("roles") Set<Role> roles
+    ){
+        user1.setRoles(roles);
+//        userServisImp.add(user);
+        userServisImp.change(user1);
         return "redirect:/admin";
     }
 

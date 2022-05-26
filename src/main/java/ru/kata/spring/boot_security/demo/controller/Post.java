@@ -36,9 +36,9 @@ public class Post {
         ua.add(rolAdmin);
         ua.add(rolUser);
 
-        userServisImp.add(new User("1", "1", "1@", user));
-        userServisImp.add(new User("2", "2", "2@", admin));
-        userServisImp.add(new User("3", "3", "3@", ua));
+        userServisImp.add(new User("1", "1", 1, "1", "1", user));
+        userServisImp.add(new User("2", "2", 2, "2", "2", admin));
+        userServisImp.add(new User("3", "3", 3, "3", "3", ua));
 
     }
 }
