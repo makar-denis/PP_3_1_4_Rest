@@ -157,7 +157,7 @@
 
                                                 <!-- Modal Delet -->
                                                 <div class="modal fade" th:id="${'delet'+user.getId()}">
-                                                    <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-dialog modal-dialog-centered modal-sm">
                                                         <div class="modal-content">
 
                                                             <div class="modal-header">
@@ -168,28 +168,28 @@
                                                             <div class="modal-body">
                                                                 <div class="form-group row justify-content-center align-items-center">
                                                                     <form th:method="DELETE" th:action="@{admin/delete/(id=${user.getId()})}">
-                                                                        <div class="form-group">
+                                                                        <div class="form-group h-25">
                                                                             <strong><label for="id">ID</label></strong>
                                                                             <input name="id" readonly type="number" th:value="${user.getId()}" id="id" placeholder="ID" class="form-control">
                                                                         </div>
-                                                                        <div class="form-group">
+                                                                        <div class="form-group h-25">
                                                                             <strong><label for="userName">First name</label></strong>
                                                                             <input type="text" th:value="${user.getUsername()}" id="userName" placeholder="First name" class="form-control">
                                                                         </div>
-                                                                        <div class="form-group">
+                                                                        <div class="form-group h-25">
                                                                             <strong><label for="lastName">Last name</label></strong>
                                                                             <input type="text" th:value="${user.getLastName()}" id="lastName" placeholder="Last name" class="form-control">
                                                                         </div>
-                                                                        <div class="form-group">
+                                                                        <div class="form-group h-25">
                                                                             <strong><label for="age">Age</label></strong>
                                                                             <input type="text" th:value="${user.getAge()}" id="age" placeholder="Age" class="form-control">
                                                                         </div>
-                                                                        <div class="form-group">
+                                                                        <div class="form-group h-25">
                                                                             <strong><label for="email">Email</label></strong>
                                                                             <input type="text" th:value="${user.getEmail()}" id="email" placeholder="Email" class="form-control">
                                                                         </div>
 
-                                                                        <div class="form-group">
+                                                                        <div class="form-group h-25">
                                                                             <strong><label for="editRoles">Role</label></strong>
                                                                             <select multiple class="form-control" id="editRoles"
                                                                                     name="roles">
@@ -223,7 +223,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade  text-center" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" >
+                    <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" >
 
                         <form action="#" th:action="@{admin/create}" th:object="${newUser}" method="post">
                             <div class="form-group">
@@ -246,9 +246,9 @@
                                 <label for="password">Password</label>
                                 <input type="text" id="password" name="password" placeholder="Password">
                             </div>
-                            <div class="form-group row justify-content-center align-items-center">
+                            <div class="form-group  text-center w-25">
                                 <label for="roles">Role</label>
-                                <select multiple class="form-control" id="roles" name="roles">
+                                <select multiple class="form-control " id="roles" name="roles">
                                     <option
                                             th:each="role : ${rol}"
                                             th:text="${role.getName()}"
