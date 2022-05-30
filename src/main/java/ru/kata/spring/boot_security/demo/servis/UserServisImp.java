@@ -28,9 +28,11 @@ public class UserServisImp implements UserDetailsService, UserServis { //
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails user = userRepository.findUserByUserName(username);
+        user.getAuthorities().size(); // добавил
         if (user==null){
             throw new UsernameNotFoundException("Пользватель не найден");
         }  // проверка наличия пользователя
@@ -71,11 +73,13 @@ public class UserServisImp implements UserDetailsService, UserServis { //
 //        userRepository.saveAndFlush(user);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<User> all() {
         return userRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public User getUserBiId(long id) {
 //        return userRepository.getById(id);
@@ -83,7 +87,7 @@ public class UserServisImp implements UserDetailsService, UserServis { //
 //        return userRepository.getOne(id);
 //        return userRepository.getReferenceById(id);
     }
-
+    @Transactional(readOnly = true)
     @Override
     public User getUserByName(String name) {
         return userRepository.findUserByUserName(name);
