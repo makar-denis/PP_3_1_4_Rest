@@ -1,7 +1,7 @@
-package ru.kata.spring.boot_security.demo.repository;
+package ru.kata.spring.rest.demo.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import ru.kata.spring.boot_security.demo.models.Role;
+import ru.kata.spring.rest.demo.models.Role;
 
 import java.util.Set;
 

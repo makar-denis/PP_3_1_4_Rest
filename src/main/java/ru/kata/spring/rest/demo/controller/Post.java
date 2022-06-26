@@ -1,11 +1,11 @@
-package ru.kata.spring.boot_security.demo.controller;
+package ru.kata.spring.rest.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.models.Role;
-import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.servis.RoleServisImp;
-import ru.kata.spring.boot_security.demo.servis.UserServisImp;
+import ru.kata.spring.rest.demo.models.Role;
+import ru.kata.spring.rest.demo.models.User;
+import ru.kata.spring.rest.demo.servis.RoleServisImp;
+import ru.kata.spring.rest.demo.servis.UserServisImp;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
@@ -39,6 +39,7 @@ public class Post {
         userServisImp.add(new User("1", "1", 1, "1", "1", user));
         userServisImp.add(new User("2", "2", 2, "2", "2", admin));
         userServisImp.add(new User("3", "3", 3, "3", "3", ua));
+        userServisImp.add(new User("3", "3", 3, "3", "3"));
 
     }
 }

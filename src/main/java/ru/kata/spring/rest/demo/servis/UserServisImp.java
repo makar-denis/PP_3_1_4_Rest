@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.servis;
+package ru.kata.spring.rest.demo.servis;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.repository.UserRepository;
+import ru.kata.spring.rest.demo.models.User;
+import ru.kata.spring.rest.demo.repository.UserRepository;
 
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class UserServisImp implements UserDetailsService, UserServis { //
 ////        user.setRoles(roles);
         userRepository.save(user);
     }
-
+    @Transactional(readOnly = false)
     @Override
     public void delete(long id) {
         userRepository.deleteById(id);

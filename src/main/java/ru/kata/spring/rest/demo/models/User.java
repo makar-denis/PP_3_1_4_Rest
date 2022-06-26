@@ -1,19 +1,15 @@
-package ru.kata.spring.boot_security.demo.models;
+package ru.kata.spring.rest.demo.models;
 
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
 //
-//import javax.persistence.*;
-//import java.util.Collection;
-//import java.util.HashSet;
-//import java.util.Set;
-
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Set;
 
 //@Data
@@ -93,6 +89,20 @@ public class User implements UserDetails {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    // Вывод списока ролей строкой:
+    public String stringRoles(){
+        String stringRoles=null;
+        Iterator<Role> iterator = roles.iterator();
+        while (iterator.hasNext()){
+            if (stringRoles==null){
+                stringRoles = iterator.next().getName();
+            } else {
+                stringRoles = String.join(", ", stringRoles, iterator.next().getName());
+            }
+        }
+        return stringRoles;
     }
 
     public void setId(long id) {

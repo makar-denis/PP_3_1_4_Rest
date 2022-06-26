@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.configs;
+package ru.kata.spring.rest.demo.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,7 +17,7 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
-@ComponentScan("ru.kata.spring.boot_security.demo")
+@ComponentScan("ru.kata.spring.rest.demo")
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
@@ -35,6 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setForceEncoding(true);
         http.addFilterBefore(filter, CsrfFilter.class);
         http
+                .cors().disable()
+                .csrf().disable()
                     .authorizeRequests()
                     .antMatchers("/", "/index").permitAll()
                     .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
