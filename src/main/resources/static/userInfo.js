@@ -1,4 +1,4 @@
-const urlUserInfo = 'http://localhost:8080/api/users'
+const urlUserInfo = 'http://localhost:8080/api/user'
 
 let userInfo = document.querySelector('#userInfo')
 fetch(urlUserInfo)

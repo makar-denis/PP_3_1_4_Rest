@@ -1,4 +1,4 @@
-package ru.kata.spring.rest.demo.servis;
+package ru.kata.spring.rest.demo.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +15,13 @@ import java.util.List;
 
 @Transactional
 @Service
-public class UserServisImp implements UserDetailsService, UserServis { //
-//    @PersistenceContext
-//    private EntityManager em;
+public class UserServiceImp implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder; // бин из WebSecurityConfig для кодировки пароля
 
     @Autowired
-    public UserServisImp(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImp(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -39,17 +37,12 @@ public class UserServisImp implements UserDetailsService, UserServis { //
         return user;
     }
 
-
     @Override
     public void add(User user) {
-//        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword())); // пришифровании пароля
-//        user.setPassword(user.getPassword());
-////        Set<Role> roles = new HashSet<>();
-////        roles.add(roleRepositiry.getOne(1L));
-////        user.setRoles(roles);
         userRepository.save(user);
     }
+
     @Transactional(readOnly = false)
     @Override
     public void delete(long id) {
@@ -59,18 +52,8 @@ public class UserServisImp implements UserDetailsService, UserServis { //
     @Override
     public void change(User user){
         String passwordFromForm = user.getPassword();
-        String encodedPasswordFromBase = userRepository.getById(user.getId()).getPassword();
-        if (passwordFromForm.equals(encodedPasswordFromBase)) {
-            user.setPassword(encodedPasswordFromBase);
-        } else {
-            if (passwordEncoder.matches(passwordFromForm, encodedPasswordFromBase)) {
-                user.setPassword(encodedPasswordFromBase);
-            } else {
-                user.setPassword(passwordEncoder.encode(passwordFromForm));
-            }
-        }
+        user.setPassword(passwordEncoder.encode(passwordFromForm));
         userRepository.save(user);
-//        userRepository.saveAndFlush(user);
     }
 
     @Transactional(readOnly = true)
@@ -81,12 +64,10 @@ public class UserServisImp implements UserDetailsService, UserServis { //
 
     @Transactional(readOnly = true)
     @Override
-    public User getUserBiId(long id) {
-//        return userRepository.getById(id);
-        return userRepository.findById(id).orElse(null);
-//        return userRepository.getOne(id);
-//        return userRepository.getReferenceById(id);
+    public User getUserById(long id) {
+        return userRepository.findUserById(id);
     }
+
     @Transactional(readOnly = true)
     @Override
     public User getUserByName(String name) {

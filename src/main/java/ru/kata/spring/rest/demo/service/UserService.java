@@ -1,14 +1,14 @@
-package ru.kata.spring.rest.demo.servis;
+package ru.kata.spring.rest.demo.service;
 
 import ru.kata.spring.rest.demo.models.User;
 
 import java.util.List;
 
-public interface UserServis {
+public interface UserService {
     void add(User user);
     void delete(long id);
     void change(User user);
-    User getUserBiId(long id);
+    User getUserById(long id);
     User getUserByName(String name);
     List<User> all();
 }

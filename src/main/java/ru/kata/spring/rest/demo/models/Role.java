@@ -15,23 +15,17 @@ public class Role implements GrantedAuthority {
     @Column(name="name")
     private String role;
 
-    @Transient
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
-
     public Role() {
     }
 
     public Role(String role) {
         this.role=role;
     }
-//
+
     public Role(Long id, String role) {
         this.id = id;
         this.role = role;
     }
-
-
 
     public void setId(Long id) {
         this.id = id;
@@ -39,10 +33,6 @@ public class Role implements GrantedAuthority {
 
     public void setName(String role) {
         this.role = role;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     public Long getId() {
@@ -53,14 +43,22 @@ public class Role implements GrantedAuthority {
         return role;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
     @Override
     public String getAuthority() {
-//        return null;
         return getName();
     }
 
 }
+
+//    @Transient // Убрал связь с юзерами
+//    @ManyToMany(mappedBy = "roles")
+//    private Set<User> users;
+//    public void setUsers(Set<User> users) {
+//        this.users = users;
+//    }
+//    public Set<User> getUsers() {
+//        return users;
+//    }
+
+
+

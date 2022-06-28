@@ -1,4 +1,4 @@
-const url = 'http://localhost:8080/api/users'
+const url = 'http://localhost:8080/api/user'
 
 let loggedInUser = document.querySelector('#tableOneUser')
 fetch(url)

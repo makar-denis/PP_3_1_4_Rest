@@ -1,5 +1,5 @@
-const urlUserTable = 'http://localhost:8080/api/admin'
-const urlRole = 'http://localhost:8080/api/rol'
+const urlUserTable = 'http://localhost:8080/api/admin/user'
+const urlRole = 'http://localhost:8080/api/admin/rol'
 
 function listRole() {
     console.log('Сработало listRole')
@@ -10,6 +10,17 @@ function listRole() {
             console.log(list)
             $("#rolesEdit").empty()
             $("#rolesEdit").append(list)
+        })
+}
+function listRoleNewUser() {
+    console.log('Сработало listRoleNewUser')
+    fetch(urlRole)
+        .then(res => res.json())
+        .then(listRol => {
+            list = listRol.map(r=>' <option>'+r.name+ '</option>')
+            console.log(list)
+            $("#rolesNewUser").empty()
+            $("#rolesNewUser").append(list)
         })
 }
 
@@ -38,7 +49,7 @@ fetch(urlUserTable)
 
 function functionEdit(id){
     console.log('Сработало нажатие кнопки редактирования')
-    fetch('http://localhost:8080/api/admin/' +id)
+    fetch('http://localhost:8080/api/admin/user/' +id)
         .then(res => res.json())
         .then(user => {
             console.log('Получил User по id')
@@ -50,9 +61,6 @@ function functionEdit(id){
             document.getElementById("emailEdit").value = user.email
             document.getElementById("passwordEdit").value = user.password
             listRole()
-            // $("#rolesEdit").empty()
-            // listRol = '<option> id="idRole"'+'ROLE_USER'+'</option>'+'<option>'+'ROLE_ADMIN'+'</option>'
-            // $("#rolesEdit").append(listRol)
         })
 }
 
@@ -61,7 +69,7 @@ function fEdit() {
     let rol = window.formModalEdit.rolesEdit.value
     console.log('Включилась fEdit()')
     console.log(id)
-    fetch('http://localhost:8080/api/update?roles='+rol, {
+    fetch('http://localhost:8080/api/admin/user/update?roles='+rol, {
         method: 'PUT',
         body: JSON.stringify({
             id: id,
@@ -72,12 +80,7 @@ function fEdit() {
             password: window.formModalEdit.passwordEdit.value
         }),
         headers: { 'Content-Type': 'application/json; charset=utf-8'}
-    })
-        // .then(response => (
-        //     console.log('отправлен запрос tgggg')))
-
-    //         res => res.json())
-        .then(response => {
+    }).then(response => {
             console.log('Не срабатывает?????')
 
             temp=""
@@ -101,7 +104,7 @@ function fEdit() {
 function functionDelet(id){
     console.log('Сработало нажатие кнопки удаления')
 
-    fetch('http://localhost:8080/api/admin/' +id)
+    fetch('http://localhost:8080/api/admin/user/' +id)
         .then(res => res.json())
         .then(user => {
             console.log('Получил User по id')
@@ -120,12 +123,11 @@ function functionDelet(id){
 function fDelet() {
     let id = window.qwert.idDelete.value
     console.log(' получено  id=' + id)
-    fetch('http://localhost:8080/api/delete/'+id, {
+    fetch('http://localhost:8080/api/admin/user/delete/'+id, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json; charset=utf-8'}
     }).then(response => (
         console.log('отправлен запрос delete')
-        // $('#' + id).remove()
         )
 )
 }
@@ -133,7 +135,7 @@ function fDelet() {
 function newUser() {
     let rol = window.formNewUser.rolesNewUser.value
     console.log('нажата кнопка создания пользователя')
-    fetch('http://localhost:8080/api/create?roles='+rol, {
+    fetch('http://localhost:8080/api/admin/user/create?roles='+rol, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=utf-8'},
         body: JSON.stringify({
@@ -160,24 +162,6 @@ function newUser() {
                 "<td>"+'<button type="button" onclick="functionDelet(' + us.id + ')" '
                 + 'class="btn btn-danger">Delete</button>'+
                 `</tr>`);
-})
-
-
-//Заменить на новую таблицу
-//             var temp=""
-//             temp +="<tr id='"+us.id+"'>"
-//             temp +="<td>"+ us.id
-//             temp +="<td>"+ us.username
-//             temp +="<td>"+ us.lastName
-//             temp +="<td>"+ us.age
-//             temp +="<td>"+ us.email
-//             temp +="<td>"+ us.roles.map(r=>' '+r.name)
-//             temp += "<td>"+'<button type="button" onclick="functionEdit(' + us.id + ')" '
-//                 + 'class="btn btn-primary">Edit</button>';
-//             temp += "<td>"+'<button type="button" onclick="functionDelet(' + us.id + ')" '
-//                 + 'class="btn btn-danger">Delete</button>';
-//
-//             $("#"+id).replaceWith(temp);
-//             console.log(temp)
+            })
 
 }

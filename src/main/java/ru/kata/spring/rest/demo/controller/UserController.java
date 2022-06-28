@@ -1,16 +1,23 @@
 package ru.kata.spring.rest.demo.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-
-//@Controller
-@RestController
+@Controller
 public class UserController {
 
-    @GetMapping("/r")
-    public String start(Principal principal){
-        return "Hello "+principal.getName();// смотрю под каким пользователем я зашел использовал для проб
+//    private final UserServisImp userServisImp;
+//
+//    @Autowired
+//    public UserController(UserServisImp userServisImp) {
+//        this.userServisImp = userServisImp;
+//    }
+
+    @GetMapping("/user")
+    public String user(){
+//            @AuthenticationPrincipal UserDetails userDetails, ModelMap model) {
+//        model.addAttribute("user", userServisImp.getUserByName(userDetails.getUsername()));
+        return "user";
     }
+
 }

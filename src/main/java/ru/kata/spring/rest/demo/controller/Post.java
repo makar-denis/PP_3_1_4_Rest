@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.kata.spring.rest.demo.models.Role;
 import ru.kata.spring.rest.demo.models.User;
-import ru.kata.spring.rest.demo.servis.RoleServisImp;
-import ru.kata.spring.rest.demo.servis.UserServisImp;
+import ru.kata.spring.rest.demo.service.RoleServiceImp;
+import ru.kata.spring.rest.demo.service.UserServiceImp;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
@@ -14,20 +14,20 @@ import java.util.Set;
 @Component
 public class Post {
 
-    private final UserServisImp userServisImp;
-    private final RoleServisImp roleServisImp;
+    private final UserServiceImp userServiceImp;
+    private final RoleServiceImp roleServiceImp;
     @Autowired
-    public Post(UserServisImp userServisImp, RoleServisImp roleServisImp) {
-        this.userServisImp = userServisImp;
-        this.roleServisImp=roleServisImp;
+    public Post(UserServiceImp userServiceImp, RoleServiceImp roleServiceImp) {
+        this.userServiceImp = userServiceImp;
+        this.roleServiceImp=roleServiceImp;
     }
 
     @PostConstruct
     public void init() {
         Role rolUser = new Role("ROLE_USER");
         Role rolAdmin = new Role("ROLE_ADMIN");
-        roleServisImp.addRole(rolUser);
-        roleServisImp.addRole(rolAdmin);
+        roleServiceImp.addRole(rolUser);
+        roleServiceImp.addRole(rolAdmin);
         Set <Role> user = new HashSet<>();
         user.add(rolUser);
         Set <Role> admin = new HashSet<>();
@@ -36,10 +36,10 @@ public class Post {
         ua.add(rolAdmin);
         ua.add(rolUser);
 
-        userServisImp.add(new User("1", "1", 1, "1", "1", user));
-        userServisImp.add(new User("2", "2", 2, "2", "2", admin));
-        userServisImp.add(new User("3", "3", 3, "3", "3", ua));
-        userServisImp.add(new User("3", "3", 3, "3", "3"));
+        userServiceImp.add(new User("1", "1", 1, "1", "1", user));
+        userServiceImp.add(new User("2", "2", 2, "2", "2", admin));
+        userServiceImp.add(new User("3", "3", 3, "3", "3", ua));
+        userServiceImp.add(new User("4", "4", 4, "4", "4"));
 
     }
 }

@@ -1,4 +1,4 @@
-package ru.kata.spring.rest.demo.servis;
+package ru.kata.spring.rest.demo.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,10 +9,10 @@ import java.util.Set;
 
 @Service
 @Transactional
-public class RoleServisImp implements RoleServis{
+public class RoleServiceImp implements RoleService {
     private RoleRepository roleRepository;
 
-    public RoleServisImp(RoleRepository roleRepository) {
+    public RoleServiceImp(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 
@@ -24,7 +24,7 @@ public class RoleServisImp implements RoleServis{
 
     @Transactional(readOnly = true)
     @Override
-    public Role getRoleByID(Long id) {
+    public Role getRoleById(Long id) {
         return roleRepository.findRoleById(id);
     }
 

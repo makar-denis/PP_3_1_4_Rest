@@ -1,9 +1,5 @@
 package ru.kata.spring.rest.demo.models;
 
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
-//
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,7 +8,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
-//@Data
 @Entity
 @Table(name="users")
 public class User implements UserDetails {
@@ -66,10 +61,6 @@ public class User implements UserDetails {
         return id;
     }
 
-//    public String getUsername() {
-//        return userName;
-//    }
-
     public String getLastName() {
         return lastName;
     }
@@ -81,11 +72,6 @@ public class User implements UserDetails {
     public String getEmail() {
         return email;
     }
-
-//    @Override
-//    public String getPassword() {
-//        return password;
-//    }
 
     public Set<Role> getRoles() {
         return roles;
@@ -145,34 +131,27 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-//        return false;
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-//        return false;
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-//        return false;
         return true;
     }
 
     @Override
     public boolean isEnabled() {
-//        return false;
         return true;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return null;
         return  getRoles();
     }
-
-
 
 }

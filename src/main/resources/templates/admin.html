@@ -45,7 +45,7 @@
                            role="tab" aria-controls="nav-home" aria-selected="true">Users table</a>
                         <!--            // кнопка вкдадки New User-->
                         <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
-                           role="tab" aria-controls="nav-profile" aria-selected="false">New User</a>
+                           role="tab" aria-controls="nav-profile" aria-selected="false" onclick="listRoleNewUser()">New User</a>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -213,11 +213,7 @@
                             <div class="form-group  text-center w-25">
                                 <label>Role</label>
                                 <select multiple class="form-control " id="rolesNewUser" name="roles">
-                                    <option
-                                            th:each="role : ${rol}"
-                                            th:text="${role.getName()}"
-                                            th:value="${role.getName()}">
-                                    </option>
+
                                 </select>
 
                             </div>

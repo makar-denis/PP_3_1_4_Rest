@@ -1,12 +1,12 @@
-package ru.kata.spring.rest.demo.servis;
+package ru.kata.spring.rest.demo.service;
 
 import ru.kata.spring.rest.demo.models.Role;
 
 import java.util.Set;
 
-public interface RoleServis {
+public interface RoleService {
     Set<Role> findAll();
-    Role getRoleByID(Long id);
+    Role getRoleById(Long id);
     Role getRoleByRole(String role);
     void addRole(Role role);
 }
