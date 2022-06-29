@@ -6,20 +6,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kata.spring.rest.demo.models.User;
-import ru.kata.spring.rest.demo.service.RoleServiceImp;
-import ru.kata.spring.rest.demo.service.UserServiceImp;
+import ru.kata.spring.rest.demo.service.RoleService;
+import ru.kata.spring.rest.demo.service.UserService;
 
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
 
-    private final UserServiceImp userServiceImp;
-    private final RoleServiceImp roleServiceImp;
+    private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
-    public UserRestController(UserServiceImp userServiceImp, RoleServiceImp roleServiceImp) {
-        this.userServiceImp = userServiceImp;
-        this.roleServiceImp = roleServiceImp;
+    public UserRestController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping("/user")
